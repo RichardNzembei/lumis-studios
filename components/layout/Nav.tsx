@@ -44,7 +44,7 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm transition-colors duration-200 ${
+              className={`cursor-pointer text-sm transition-colors duration-200 ${
                 pathname === l.href
                   ? "font-medium text-gray-800"
                   : "text-gray-400 hover:text-gray-800"
@@ -74,7 +74,7 @@ export default function Nav() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className={`text-sm transition-colors duration-200 ${
+                className={`cursor-pointer text-sm transition-colors duration-200 ${
                   pathname === l.href
                     ? "font-medium text-gray-800"
                     : "text-gray-400 hover:text-gray-800"
