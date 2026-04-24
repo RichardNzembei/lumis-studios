@@ -49,7 +49,7 @@ export default function Footer() {
               Social
             </p>
             <a
-              href="https://www.linkedin.com/in/nzembei-reuben"
+              href="https://www.linkedin.com/company/lumis-studios/"
               rel="noopener noreferrer"
               target="_blank"
               className="flex items-center gap-2 text-sm text-gray-600 transition-colors duration-200 hover:text-gray-800"
