@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Tag } from "@/components/ui/Tag";
 import { Container } from "@/components/ui/Container";
@@ -10,7 +13,12 @@ interface CaseStudyLayoutProps {
 
 export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
   return (
-    <div className="min-h-screen bg-white pt-[52px]">
+    <motion.div
+      className="min-h-screen bg-white pt-[52px]"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+    >
       {/* Hero */}
       <section className="border-b border-gray-100 py-16">
         <Container>
@@ -57,6 +65,6 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
           </div>
         </Container>
       </section>
-    </div>
+    </motion.div>
   );
 }

@@ -33,7 +33,12 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <div className="pt-[52px]">
+    <motion.div
+      className="pt-[52px]"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+    >
       {/* Header */}
       <section className="border-b border-gray-100 py-16">
         <Container>
@@ -142,6 +147,6 @@ export default function AboutPage() {
       </Section>
 
       <CTA />
-    </div>
+    </motion.div>
   );
 }

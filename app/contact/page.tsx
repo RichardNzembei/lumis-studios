@@ -42,7 +42,12 @@ const details = [
 
 export default function ContactPage() {
   return (
-    <div className="pt-[52px]">
+    <motion.div
+      className="pt-[52px]"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+    >
       {/* Header */}
       <section className="border-b border-gray-100 py-16">
         <Container>
@@ -121,6 +126,6 @@ export default function ContactPage() {
           </motion.div>
         </Container>
       </Section>
-    </div>
+    </motion.div>
   );
 }
