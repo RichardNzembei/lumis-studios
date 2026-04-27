@@ -57,15 +57,6 @@ export default function Footer() {
               <ExternalLink size={14} />
               LinkedIn
             </a>
-            <a
-              href="https://github.com/lumis-studios"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="flex items-center gap-2 text-sm text-gray-600 transition-colors duration-200 hover:text-gray-800"
-            >
-              <ExternalLink size={14} />
-              GitHub
-            </a>
           </div>
         </div>
 
