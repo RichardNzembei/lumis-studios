@@ -5,6 +5,11 @@ export interface Service {
   description: string;
 }
 
+export interface ProjectFeature {
+  title: string;
+  description: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -14,6 +19,11 @@ export interface Project {
   tech: string[];
   featured: boolean;
   year: string;
+  overview: string;
+  role: string;
+  features: ProjectFeature[];
+  architecture: string;
+  highlights: string[];
 }
 
 export interface TechGroup {
@@ -88,6 +98,52 @@ export const projects: Project[] = [
     tech: ["Nuxt 3", "Vue 3", "TypeScript", "Firebase", "Pinia", "TipTap", "Tailwind CSS", "PWA"],
     featured: true,
     year: "2024",
+    overview:
+      "ElevateYou was built to give teams and individuals a single, unified workspace for managing projects without the cost or complexity of enterprise tools. The platform combines Kanban task boards, a rich document editor, and real-time team collaboration — all synced instantly through Firebase Firestore. It is fully open-source under the MIT license, meaning any team can self-host or contribute to it.",
+    role:
+      "Designed and built the full product from scratch — architecture, data modeling, Firestore security rules, real-time sync layer, PWA setup, and all frontend UI.",
+    features: [
+      {
+        title: "Kanban Boards",
+        description:
+          "Drag-and-drop task boards with To Do, In Progress, and Done columns. Tasks carry priorities, due dates, assignees, and dependencies — giving teams a clear visual picture of work in flight.",
+      },
+      {
+        title: "Rich Document Editor",
+        description:
+          "TipTap-powered editor supporting headings, bullet lists, code blocks, and nested document trees. Teams can write specs, meeting notes, and project briefs directly in the workspace — no separate wiki needed.",
+      },
+      {
+        title: "Team Workspaces & RBAC",
+        description:
+          "Isolated workspaces per team with a four-tier role system: Owner, Admin, Member, and Viewer. Permissions are enforced both client-side and at the Firestore security rules level, so data never leaks between workspaces.",
+      },
+      {
+        title: "Real-time Collaboration",
+        description:
+          "Firestore onSnapshot listeners push updates to every connected client instantly. Two team members editing the same board see each other's changes in real time without any page refreshes.",
+      },
+      {
+        title: "Multiple Views",
+        description:
+          "Switch between Kanban, list, and calendar views for the same set of tasks. Different team members can work in the view that suits their workflow without changing the underlying data.",
+      },
+      {
+        title: "PWA — Install Anywhere",
+        description:
+          "ElevateYou installs as a native-like app on Android, iOS, and desktop. Workbox service workers cache critical assets so the app remains usable even on unstable connections.",
+      },
+    ],
+    architecture:
+      "The frontend is built with Nuxt 3 (Vue 3 + TypeScript), using Pinia for state management with composables that wrap Firestore listeners. Firebase handles authentication, database, and file storage — eliminating backend infrastructure entirely. The real-time layer uses a dual-listener pattern to merge workspaces the user owns with workspaces they've been invited to, all reconciled in a single reactive store. Firestore security rules enforce role-based access at the database level, ensuring that even direct API calls cannot bypass permissions. A lightweight Node.js server API handles email invitations via Nodemailer. The PWA layer uses Vite PWA with a NetworkFirst strategy for API calls and CacheFirst for static assets.",
+    highlights: [
+      "Zero backend infrastructure — Firebase powers auth, database, and storage",
+      "Four-tier RBAC enforced at both app and Firestore security rules level",
+      "Real-time sync across all clients via Firestore onSnapshot",
+      "Installable PWA with offline support via Workbox service workers",
+      "Open-source (MIT) — any team can self-host or extend it",
+      "Rich text editing with TipTap including nested document hierarchies",
+    ],
   },
   {
     slug: "budgetplug-ke",
@@ -99,6 +155,52 @@ export const projects: Project[] = [
     tech: ["Nuxt 4", "Vue 3", "Nuxt UI", "Express.js", "MySQL", "Socket.io", "M-Pesa", "Cloudinary", "PWA"],
     featured: true,
     year: "2025",
+    overview:
+      "BudgetPlug KE was built to bridge the gap between Kenyan bulk importers and retail consumers. The platform lets shoppers browse Chinese wholesale goods, check out with M-Pesa in a single STK push, and track their order from placement to delivery. On the seller side, an admin dashboard provides real-time inventory control, order management, and payment reconciliation. The system is built for the realities of the Kenyan market — mobile-first, M-Pesa native, and capable of running in low-bandwidth conditions.",
+    role:
+      "Built the full platform end-to-end: database schema, Express.js REST API, M-Pesa Daraja integration, real-time Socket.io layer, Nuxt 4 storefront, admin dashboard, and PWA configuration.",
+    features: [
+      {
+        title: "M-Pesa STK Push Checkout",
+        description:
+          "Customers pay using M-Pesa's STK push — they enter their phone number, receive a prompt on their phone, and confirm payment with their PIN. The system normalizes phone numbers (0700→254700), polls for payment confirmation, and updates order status automatically.",
+      },
+      {
+        title: "Real-time Inventory",
+        description:
+          "Socket.io broadcasts stock changes to all connected admin users instantly. When a product sells out or stock is replenished, every open dashboard session updates without a page refresh — eliminating overselling.",
+      },
+      {
+        title: "Guest & Authenticated Checkout",
+        description:
+          "Customers can complete purchases without creating an account using just their phone number. Registered users get order history, saved addresses, and a wishlist. Both flows share the same order management backend.",
+      },
+      {
+        title: "Admin Dashboard",
+        description:
+          "A comprehensive back-office for managing products, orders, payments, and users. Includes sales analytics, payment status tracking, and stock alerts — built to let a small team run a high-volume catalogue.",
+      },
+      {
+        title: "Order Tracking",
+        description:
+          "Every order has a lifecycle — placed, confirmed, packed, shipped, delivered. Customers receive real-time status updates via web push notifications. Admins move orders through stages from the dashboard.",
+      },
+      {
+        title: "Offline-Ready PWA",
+        description:
+          "The storefront installs as a PWA with aggressive caching: API responses cached for one hour, product images cached for 30 days. Returning users see products immediately even before the network responds.",
+      },
+    ],
+    architecture:
+      "The storefront is built with Nuxt 4 (Vue 3) using Nuxt UI for components and Pinia with persisted state for cart and session management. The backend is an Express.js API on Node.js connected to a MySQL database with structured tables for users, products, orders, and payments. M-Pesa payments flow through Safaricom's Daraja API: the backend initiates an STK push, receives a callback URL confirmation, and reconciles the payment against the pending order. Socket.io runs on the Express server and emits stock and order events to all connected clients. Product images are hosted and served from a static uploads directory with CORS headers. The PWA layer uses Vite PWA with NetworkFirst strategies for API calls and CacheFirst for images, ensuring fast repeat visits on slow Kenyan networks.",
+    highlights: [
+      "Native M-Pesa STK push — no card required, works on any Kenyan phone",
+      "Real-time stock sync via Socket.io prevents overselling across concurrent sessions",
+      "Guest checkout with phone number only — removes friction for new customers",
+      "PWA with 30-day image cache and 1-hour API cache for low-bandwidth conditions",
+      "Full order lifecycle from placement to delivery with push notification updates",
+      "Rate-limited auth endpoints to protect against brute-force attacks",
+    ],
   },
   {
     slug: "mnt-farms",
@@ -110,6 +212,52 @@ export const projects: Project[] = [
     tech: ["Nuxt 3", "Vue 3", "TypeScript", "Firebase", "Firestore", "Pinia", "VueUse", "PWA"],
     featured: true,
     year: "2024",
+    overview:
+      "MTN Farms replaces paper-based farm record keeping with a structured digital system farmers can use directly from the field. The app organises each farming season into a project — and within that project, tracks every dimension of operations: labor hours, land preparation, harvest yields, spraying schedules, and fertilizer applications. It was designed specifically for African conditions — mobile-first, offline-capable, and performant on low-end Android devices.",
+    role:
+      "Designed the data model for agricultural projects, built the full Nuxt 3 frontend, set up Firestore persistence, configured offline PWA caching, and designed the green-first UI suited for outdoor use.",
+    features: [
+      {
+        title: "Agricultural Project Management",
+        description:
+          "Each farming season is a project with crop type, acreage, and location. Farmers can manage multiple projects simultaneously — a maize plot, a kitchen garden, and a cash crop — each with its own independent tracking data.",
+      },
+      {
+        title: "Labor Tracking",
+        description:
+          "Log worker names, hours, tasks, and costs for every labor session. Over a season, farmers get a complete record of labor expenditure that can be used for cost analysis and future planning.",
+      },
+      {
+        title: "Harvest Monitoring",
+        description:
+          "Record harvest dates, yield quantities, and quality grades. Historical harvest data builds a multi-season picture of farm productivity — showing which inputs and practices produce the best results.",
+      },
+      {
+        title: "Spraying & Fertilizer Schedules",
+        description:
+          "Track pesticide and fungicide applications with product names, quantities, and dates. Fertilizer logs capture type, quantity, and application date. Both create an auditable record critical for organic certification and export compliance.",
+      },
+      {
+        title: "Offline-First Operation",
+        description:
+          "Farmers often work in areas with no mobile signal. The app caches all project data locally via Workbox service workers. Changes made offline are queued and synced to Firestore when connectivity returns.",
+      },
+      {
+        title: "Project Pinning & Archive",
+        description:
+          "Active projects can be pinned for quick access. Completed seasons are archived rather than deleted, preserving the full historical record while keeping the active project list clean.",
+      },
+    ],
+    architecture:
+      "Built with Nuxt 3 (Vue 3 + TypeScript) in client-only mode, optimised for mobile performance. Pinia stores with localStorage persistence hold project data locally, ensuring the app is fast and functional even before the network responds. Firestore acts as the source of truth for all farm data, with JWT-authenticated API calls syncing changes. The data model uses six normalised sub-tables per project (labor, land prep, harvest, spraying, fertilizer, progress), each independently queryable. VueUse provides reactive device utilities. The PWA layer is configured with a mobile-first install prompt — the app ships with a 1080×1920 screenshot for the Android install sheet, presenting itself as a standalone app rather than a browser tab.",
+    highlights: [
+      "Six tracking modules per project: labor, land prep, harvest, spraying, fertilizer, progress",
+      "Full offline operation — data queued locally and synced when connectivity returns",
+      "Mobile-first PWA with Android install prompt and standalone display mode",
+      "JWT authentication with localStorage persistence for field use without re-login",
+      "Multi-project support — manage multiple crop cycles and locations simultaneously",
+      "Designed for low-end Android devices common in rural Kenyan farming communities",
+    ],
   },
   {
     slug: "budget-hair-supply-chain",
@@ -121,6 +269,52 @@ export const projects: Project[] = [
     tech: ["Nuxt 4", "Vue 3", "Express.js", "MySQL", "Socket.io", "Nuxt UI"],
     featured: false,
     year: "2024",
+    overview:
+      "Budget Hair Supply Chain was built for a fast-moving hair and beauty supply business where stock accuracy is critical — a single oversell means a customer order can't be fulfilled. The platform gives every member of the team — from warehouse staff to sales reps — a live, accurate view of inventory. When stock moves, every connected device updates in under a second. The POS module handles retail transactions on the same system, eliminating the data gap between sales and inventory.",
+    role:
+      "Designed the database schema, built the Express.js API, implemented real-time Socket.io stock broadcasting, and developed the Nuxt 4 frontend including the POS and inventory management interfaces.",
+    features: [
+      {
+        title: "Real-time Stock Management",
+        description:
+          "Every stock movement — sales, restocks, adjustments — is broadcast via Socket.io to all connected clients instantly. A warehouse worker updating stock in the back room and a sales rep at the counter see the same numbers at the same time.",
+      },
+      {
+        title: "Point of Sale",
+        description:
+          "Integrated POS module handles retail transactions directly within the platform. Sales automatically deduct from inventory — no separate reconciliation step, no spreadsheet updates at end of day.",
+      },
+      {
+        title: "Stock History & Audit Trail",
+        description:
+          "Every stock movement is logged with timestamp, quantity change, reason, and the user who made the change. Managers can trace any discrepancy back to its source without guesswork.",
+      },
+      {
+        title: "Low Stock & Out-of-Stock Alerts",
+        description:
+          "Computed inventory states automatically flag items below the low-stock threshold and items at zero. Reorder alerts surface before stockouts happen, not after a customer tries to buy something unavailable.",
+      },
+      {
+        title: "Role-based Access",
+        description:
+          "Admin users manage stock levels, prices, and users. Workers access the POS and view inventory but cannot modify master stock records. JWT authentication enforces role boundaries at the API level.",
+      },
+      {
+        title: "PWA for Mobile Workers",
+        description:
+          "The app installs as a PWA on Android and iOS. Field sales reps can check stock availability from their phones without carrying a laptop. Network-first caching ensures data stays fresh even on intermittent connections.",
+      },
+    ],
+    architecture:
+      "The backend is an Express.js API connected to MySQL with tables for products, stock levels, stock history, orders, and users. Socket.io runs on the same Express server and maintains a real-time channel for stock updates — when the database is modified, the server emits a broadcast to all connected clients. The frontend is built with Nuxt 4 (Vue 3) and Nuxt UI, using Pinia stores with a Socket.io state machine that tracks connection status, queues pending updates when offline, and flushes them when connectivity is restored. The stock store exposes computed getters for low-stock items (quantity < 5) and out-of-stock items (quantity = 0), giving the UI instant access to reorder-critical data. SweetAlert2 handles modal confirmations for destructive operations like stock adjustments.",
+    highlights: [
+      "Sub-second stock updates across all connected devices via Socket.io",
+      "POS and inventory on the same platform — no reconciliation gap",
+      "Full audit trail — every stock movement logged with user and timestamp",
+      "Offline resilience — pending updates queued and flushed on reconnect",
+      "Low-stock and out-of-stock computed states surfaced automatically",
+      "Role-based access enforced at API level for admin vs worker permissions",
+    ],
   },
   {
     slug: "expensifly",
@@ -132,6 +326,52 @@ export const projects: Project[] = [
     tech: ["Vue.js", "Node.js", "WebSockets", "PostgreSQL"],
     featured: false,
     year: "2023",
+    overview:
+      "EXpensifly.iO was built to give individuals — especially young professionals and gig economy workers — a clear, honest picture of where their money goes. The platform tracks daily expenses by category, monitors savings goals, and provides financial education content alongside the numbers. It is fully open-source, designed to be extended by the community and adapted for different markets and currencies.",
+    role:
+      "Designed the full product — data model, Express.js API, Vue 3 frontend, Pinia stores, ECharts visualisations, and the financial education content structure.",
+    features: [
+      {
+        title: "Expense Tracking",
+        description:
+          "Log daily spending with category, amount, date, and payment method. Filter by date range, category, or payment method to isolate spending patterns. Monthly and daily totals update automatically as entries are added.",
+      },
+      {
+        title: "Savings Goals",
+        description:
+          "Define savings targets with a goal name, target amount, and deadline. The platform tracks progress against each goal and surfaces how much needs to be saved per day or month to stay on track.",
+      },
+      {
+        title: "Financial Targets",
+        description:
+          "Set short and long-term financial goals — an emergency fund, a business investment, a travel budget. Each target has a visual progress bar and milestone markers so users can see momentum over time.",
+      },
+      {
+        title: "Analytics & Charts",
+        description:
+          "ECharts-powered visualisations show expense trends over time, category breakdowns as pie charts, and daily spending patterns as bar charts. The charts update reactively as new expenses are logged.",
+      },
+      {
+        title: "Financial Education",
+        description:
+          "Built-in guides cover budgeting basics, saving strategies for SMMEs, investment fundamentals, and introductory crypto content. Education is embedded in the app rather than outsourced to external links.",
+      },
+      {
+        title: "Open-Source & Extensible",
+        description:
+          "Every module — expense tracking, savings, targets, education — is a separate Pinia store, making it straightforward for contributors to add new features without breaking existing ones. MIT licensed.",
+      },
+    ],
+    architecture:
+      "The frontend is built with Vue 3 (Composition API, script setup) and Vite, using Pinia stores with pinia-plugin-persistedstate for localStorage sync — giving the app near-instant load times on return visits. The backend is an Express.js API on Node.js with MySQL for persistent user data, expenses, savings records, and financial targets. Passwords are hashed with bcrypt and sessions managed via JWT. Vue-ECharts wraps ECharts for reactive, responsive charts that recompute when store data changes. Tesseract.js is included for a future receipt OCR feature — snap a receipt and have the expense auto-populated. The WebSocket layer is architectured and ready for multi-device real-time sync. The app is deployed on Vercel (frontend) and Render (backend) for zero-infrastructure hosting.",
+    highlights: [
+      "Multi-store Pinia architecture — expenses, savings, targets, user each independently managed",
+      "All stores auto-persist to localStorage — app loads instantly on return visits",
+      "ECharts visualisations update reactively as expenses are logged",
+      "Tesseract.js OCR integrated for future receipt-scanning feature",
+      "WebSocket-ready architecture for multi-device sync",
+      "Open-source (MIT) with financial education content built directly into the app",
+    ],
   },
   {
     slug: "dazel",
@@ -143,6 +383,52 @@ export const projects: Project[] = [
     tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion"],
     featured: false,
     year: "2025",
+    overview:
+      "DAZEL® approached Lumis Studios needing a professional web presence that could speak to wholesale distributors and retail buyers across East Africa. The site needed to communicate quality, local manufacturing credibility, and a clear B2B value proposition — all while being fast, mobile-friendly, and discoverable on search. The result is a fully static, SEO-optimised marketing site with smooth Framer Motion animations that give the brand a premium feel without compromising load performance.",
+    role:
+      "Designed and built the complete marketing site — component architecture, Framer Motion animation sequences, SEO metadata, JSON-LD structured data, and Vercel deployment configuration.",
+    features: [
+      {
+        title: "Product Showcase",
+        description:
+          "High-quality product presentations for DAZEL®'s range: bar soap, body lotions, baby jelly, and powder detergents. Each product section communicates key benefits, ingredients, and availability — giving distributors the information they need to stock with confidence.",
+      },
+      {
+        title: "B2B Value Proposition",
+        description:
+          "A dedicated section communicates DAZEL®'s wholesale offer: competitive pricing, consistent quality from a local manufacturer, and reliable supply chain. Designed to convert distributor enquiries rather than individual retail sales.",
+      },
+      {
+        title: "Trust & Credibility Section",
+        description:
+          "Customer testimonials, manufacturing location (Kibwezi, Kenya), and product quality signals build credibility with buyers who haven't worked with DAZEL® before. East African buyers strongly prefer suppliers they can verify.",
+      },
+      {
+        title: "Framer Motion Animations",
+        description:
+          "Entrance animations, scroll-triggered reveals, and smooth section transitions give the site a polished, premium feel. All animations are implemented with Framer Motion for performant, GPU-accelerated rendering.",
+      },
+      {
+        title: "SEO & Local Search Optimisation",
+        description:
+          "Full Open Graph, Twitter Card, and JSON-LD structured data. Geographic meta tags (geo.region, geo.placename, geo.position) target local search for Kibwezi and the wider Kenyan market. React Snap pre-renders pages at build time for crawlability.",
+      },
+      {
+        title: "Contact & Enquiry",
+        description:
+          "Contact section with email, phone, and location clearly presented. Designed for B2B enquiry flow — a wholesale distributor can find what they need and reach out without friction.",
+      },
+    ],
+    architecture:
+      "Built with React 18 (functional components and hooks) and Vite as the build tool, giving extremely fast HMR in development and optimised production bundles. Tailwind CSS handles all styling with a utility-first approach. Framer Motion v11 powers all animations with hardware-accelerated transforms. React Snap pre-renders the site at build time, producing static HTML that search engines and social crawlers can index without executing JavaScript. SEO metadata including Open Graph, Twitter Cards, and JSON-LD Organisation schema are injected at render time. Vercel Analytics tracks visitor behaviour with zero configuration. The entire stack is static — no backend, no database, no server — keeping hosting costs at zero while delivering sub-second load times.",
+    highlights: [
+      "Fully static with React Snap pre-rendering — search engines crawl real HTML, not JavaScript",
+      "JSON-LD structured data and geo-tags for local East African search visibility",
+      "Framer Motion v11 animations — GPU-accelerated, no layout thrashing",
+      "Zero backend, zero hosting cost — static deployment on Vercel",
+      "Open Graph and Twitter Card metadata for social sharing previews",
+      "B2B-focused content architecture targeting wholesale distributors and retailers",
+    ],
   },
 ];
 
