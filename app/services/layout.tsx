@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Development Services",
   description:
-    "Lumis Studios offers web and mobile development, cloud infrastructure, AI and data automation, systems design, MVP development, and ongoing maintenance for businesses across Africa.",
+    "Web and mobile development, cloud infrastructure, AI automation, systems design, and MVP delivery by Lumis Studios, Nairobi.",
   alternates: { canonical: "https://lumisstudios.site/services" },
   openGraph: {
     title: "Services — Lumis Studios",
     description:
-      "Full-stack web and mobile development, cloud infrastructure, AI automation, systems design, and MVP delivery. Built for African businesses.",
+      "Web and mobile development, cloud infrastructure, AI automation, systems design, and MVP delivery by Lumis Studios, Nairobi.",
     url: "https://lumisstudios.site/services",
     images: [{ url: "https://lumisstudios.site/opengraph-image", width: 1200, height: 630 }],
   },

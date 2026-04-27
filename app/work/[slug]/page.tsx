@@ -17,8 +17,8 @@ export async function generateMetadata({
   if (!project) return {};
   const url = `https://lumisstudios.site/work/${slug}`;
   return {
-    title: project.title,
-    description: `${project.tagline} — Built by Lumis Studios. ${project.description.slice(0, 120)}`,
+    title: `${project.title} — ${project.category}`,
+    description: `${project.tagline} — A case study by Lumis Studios, Nairobi.`,
     alternates: { canonical: url },
     openGraph: {
       title: `${project.title} — Lumis Studios`,

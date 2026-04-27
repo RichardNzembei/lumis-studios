@@ -72,20 +72,20 @@ export default function AboutPage() {
               </h2>
               <p className="mt-2 text-base text-gray-600">Software Engineer & Founder</p>
 
-              <div className="mt-6 flex flex-col gap-3">
-                <div className="flex items-center gap-3 text-sm text-gray-600">
+              <ul className="mt-6 flex flex-col gap-3">
+                <li className="flex items-center gap-3 text-sm text-gray-600">
                   <MapPin size={14} className="shrink-0 text-gray-400" />
                   Nairobi, Kenya
-                </div>
-                <div className="flex items-center gap-3 text-sm text-gray-600">
+                </li>
+                <li className="flex items-center gap-3 text-sm text-gray-600">
                   <GraduationCap size={14} className="shrink-0 text-gray-400" />
                   BSc Computer Science — Kabarak University, 2022–2025
-                </div>
-                <div className="flex items-center gap-3 text-sm text-gray-600">
+                </li>
+                <li className="flex items-center gap-3 text-sm text-gray-600">
                   <Briefcase size={14} className="shrink-0 text-gray-400" />
-                  Back End Developer — Riverbank Solutions Ltd
-                </div>
-              </div>
+                  Back End Developer — <strong>Riverbank Solutions Ltd</strong>
+                </li>
+              </ul>
 
               <a
                 href="https://www.linkedin.com/in/nzembei-reuben"

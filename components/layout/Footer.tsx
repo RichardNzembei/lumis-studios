@@ -20,7 +20,7 @@ export default function Footer() {
           <div>
             <Image
               src="/lumis-logo-primary-light.svg"
-              alt="Lumis Studios"
+              alt="Lumis Studios — Home"
               width={96}
               height={41}
             />
@@ -31,16 +31,19 @@ export default function Footer() {
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
               Company
             </p>
-            <nav className="flex flex-col gap-2">
-              {companyLinks.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className="text-sm text-gray-600 transition-colors duration-200 hover:text-gray-800"
-                >
-                  {l.label}
-                </Link>
-              ))}
+            <nav>
+              <ul className="flex flex-col gap-2">
+                {companyLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="text-sm text-gray-600 transition-colors duration-200 hover:text-gray-800"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </nav>
           </div>
 
@@ -61,7 +64,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-gray-100 pt-6">
-          <p className="text-xs text-gray-400">© {year} Lumis Studios. All rights reserved.</p>
+          <p className="text-xs text-gray-400">© {year} <strong className="text-gray-500">Lumis Studios</strong>. All rights reserved.</p>
         </div>
       </Container>
     </footer>

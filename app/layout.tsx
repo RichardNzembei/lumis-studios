@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Lumis Studios",
   },
   description:
-    "Lumis Studios is a technology studio based in Nairobi, Kenya. We build web applications, mobile apps, cloud infrastructure, and AI-powered solutions for African businesses and beyond.",
+    "Lumis Studios is a tech studio in Nairobi. We build web apps, mobile apps, cloud infrastructure, and AI solutions for African businesses.",
   keywords: [
     "software studio Nairobi",
     "web development Kenya",
@@ -50,14 +50,14 @@ export const metadata: Metadata = {
     siteName: "Lumis Studios",
     title: "Lumis Studios — Software Studio, Nairobi",
     description:
-      "We build web applications, mobile apps, cloud infrastructure, and AI-powered solutions for African businesses and beyond.",
+      "We build web apps, mobile apps, cloud infrastructure, and AI solutions for African businesses.",
     images: [{ url: `${BASE_URL}/opengraph-image`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Lumis Studios — Software Studio, Nairobi",
     description:
-      "We build web applications, mobile apps, cloud infrastructure, and AI-powered solutions for African businesses and beyond.",
+      "We build web apps, mobile apps, cloud infrastructure, and AI solutions for African businesses.",
     creator: "@lumisstudios",
     images: [`${BASE_URL}/opengraph-image`],
   },

@@ -20,12 +20,7 @@ export default function Nav() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 h-[52px] border-b border-gray-100"
-      style={{
-        background: "rgba(255,255,255,0.8)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-      }}
+      className="fixed top-0 left-0 right-0 z-50 h-[52px] border-b border-gray-100 bg-white/80 backdrop-blur-md"
     >
       <div className="mx-auto flex h-full max-w-[980px] items-center justify-between px-5">
         <Link href="/" onClick={() => setOpen(false)} aria-label="Lumis Studios">
