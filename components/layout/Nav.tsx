@@ -44,7 +44,7 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className={`cursor-pointer text-sm transition-colors duration-200 ${
+              className={`cursor-pointer px-1 py-2 text-sm transition-colors duration-200 ${
                 pathname === l.href
                   ? "font-medium text-gray-800"
                   : "text-gray-400 hover:text-gray-800"
