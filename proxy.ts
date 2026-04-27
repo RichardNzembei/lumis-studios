@@ -2,9 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Next.js 16 shares `next-instant-navigation-testing` across all localhost ports.
-// When Anchor Fiscus (localhost:3001) sets this cookie, it interferes with
-// client-side navigation here. Clear it on every request so it can't redirect.
-export function middleware(request: NextRequest) {
+// Anchor Fiscus (localhost:3001) can set this cookie and interfere with navigation here.
+export function proxy(request: NextRequest) {
   const response = NextResponse.next();
   if (request.cookies.has("next-instant-navigation-testing")) {
     response.cookies.delete("next-instant-navigation-testing");
