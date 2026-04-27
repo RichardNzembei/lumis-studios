@@ -10,16 +10,99 @@ const outfit = Outfit({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const BASE_URL = "https://lumisstudios.site";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: {
     default: "Lumis Studios — Software Studio, Nairobi",
     template: "%s | Lumis Studios",
   },
   description:
-    "Lumis Studios is a technology studio based in Nairobi, Kenya. We build web applications, mobile apps, cloud infrastructure, and AI-powered solutions.",
+    "Lumis Studios is a technology studio based in Nairobi, Kenya. We build web applications, mobile apps, cloud infrastructure, and AI-powered solutions for African businesses and beyond.",
+  keywords: [
+    "software studio Nairobi",
+    "web development Kenya",
+    "mobile app development Africa",
+    "React developer Nairobi",
+    "Next.js developer Kenya",
+    "software engineer Kenya",
+    "cloud infrastructure Africa",
+    "AI automation Kenya",
+    "MVP development Nairobi",
+    "Lumis Studios",
+  ],
+  authors: [{ name: "Nzembei Reuben", url: BASE_URL }],
+  creator: "Lumis Studios",
+  publisher: "Lumis Studios",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
+  alternates: {
+    canonical: BASE_URL,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_KE",
+    url: BASE_URL,
+    siteName: "Lumis Studios",
+    title: "Lumis Studios — Software Studio, Nairobi",
+    description:
+      "We build web applications, mobile apps, cloud infrastructure, and AI-powered solutions for African businesses and beyond.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lumis Studios — Software Studio, Nairobi",
+    description:
+      "We build web applications, mobile apps, cloud infrastructure, and AI-powered solutions for African businesses and beyond.",
+    creator: "@lumisstudios",
+  },
   icons: {
     icon: "/lumis-favicon.svg",
+    shortcut: "/lumis-favicon.svg",
+    apple: "/lumis-favicon.svg",
   },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${BASE_URL}/#organization`,
+      name: "Lumis Studios",
+      url: BASE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/lumis-logo-primary-light.svg`,
+      },
+      description:
+        "A technology studio based in Nairobi, Kenya, building web applications, mobile apps, cloud infrastructure, and AI-powered solutions.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Nairobi",
+        addressCountry: "KE",
+      },
+      sameAs: [
+        "https://www.linkedin.com/company/lumis-studios/",
+        "https://github.com/lumis-studios",
+      ],
+      founder: {
+        "@type": "Person",
+        name: "Nzembei Reuben",
+        url: "https://www.linkedin.com/in/nzembei-reuben",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${BASE_URL}/#website`,
+      url: BASE_URL,
+      name: "Lumis Studios",
+      publisher: { "@id": `${BASE_URL}/#organization` },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -33,6 +116,10 @@ export default function RootLayout({
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </body>
     </html>
   );

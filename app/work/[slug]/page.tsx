@@ -15,9 +15,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
+  const url = `https://lumisstudios.site/work/${slug}`;
   return {
     title: project.title,
-    description: project.tagline,
+    description: `${project.tagline} — Built by Lumis Studios. ${project.description.slice(0, 120)}`,
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${project.title} — Lumis Studios`,
+      description: project.tagline,
+      url,
+    },
   };
 }
 
