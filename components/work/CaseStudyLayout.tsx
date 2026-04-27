@@ -155,16 +155,37 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
         </Container>
       </section>
 
-      {/* Bottom nav */}
-      <section className="border-t border-gray-100 py-10">
+      {/* Internal CTA */}
+      <section className="border-t border-gray-100 bg-gray-50 py-14">
         <Container>
-          <Link
-            href="/work"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors duration-200 hover:text-gray-800"
-          >
-            <ArrowLeft size={14} />
-            Back to all work
-          </Link>
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+                Build with us
+              </p>
+              <p className="mt-2 text-lg font-semibold text-gray-800">
+                Want something like this for your business?
+              </p>
+              <p className="mt-1 text-sm text-gray-600">
+                We build <Link href="/services" className="underline underline-offset-2 hover:text-gray-800 transition-colors duration-200">web apps, mobile apps, and cloud infrastructure</Link> for African businesses.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 shrink-0">
+              <Link
+                href="/contact"
+                className="rounded-[980px] bg-gray-800 px-6 py-2.5 text-sm font-medium text-white transition-opacity duration-200 hover:opacity-80"
+              >
+                Start a Project
+              </Link>
+              <Link
+                href="/work"
+                className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors duration-200 hover:text-gray-800"
+              >
+                <ArrowLeft size={14} />
+                All Work
+              </Link>
+            </div>
+          </div>
         </Container>
       </section>
     </motion.div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/layout/Section";
@@ -27,6 +28,16 @@ export default function WorkPage() {
               title="Products we've built."
               description="A selection of projects across productivity, e-commerce, agri-tech, supply chain, fintech, and consumer goods."
             />
+            <p className="mt-4 text-sm text-gray-500">
+              Want to work with us?{" "}
+              <Link href="/contact" className="underline underline-offset-2 hover:text-gray-800 transition-colors duration-200">
+                Start a project
+              </Link>{" "}
+              or{" "}
+              <Link href="/services" className="underline underline-offset-2 hover:text-gray-800 transition-colors duration-200">
+                explore our services
+              </Link>.
+            </p>
           </div>
         </Container>
       </section>
