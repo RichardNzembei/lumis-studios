@@ -53,6 +53,7 @@ export default function ContactPage() {
         <Container>
           <div className="max-w-xl">
             <SectionHeader
+              as="h1"
               eyebrow="Contact"
               title="Let's talk."
               description="Tell us what you're working on. We'll get back to you within 24 hours."
@@ -97,9 +98,9 @@ export default function ContactPage() {
             {/* Details */}
             <motion.div variants={fadeUpVariant} className="flex flex-col gap-8">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
                   Details
-                </p>
+                </h2>
                 <div className="mt-4 flex flex-col gap-4">
                   {details.map((d) => (
                     <div key={d.label} className="flex items-center gap-3 text-sm text-gray-600">
@@ -112,9 +113,9 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
                   What to include
-                </p>
+                </h2>
                 <ul className="mt-4 flex flex-col gap-2 text-sm text-gray-600">
                   <li>— What you&apos;re building or the problem you&apos;re solving</li>
                   <li>— Your timeline and budget range</li>

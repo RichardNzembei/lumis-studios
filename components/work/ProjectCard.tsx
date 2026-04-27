@@ -8,9 +8,10 @@ import type { Project } from "@/lib/data";
 
 interface ProjectCardProps {
   project: Project;
+  headingLevel?: "h2" | "h3";
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, headingLevel: Title = "h3" }: ProjectCardProps) {
   return (
     <motion.div whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
       <Link
@@ -23,7 +24,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         <div className="mt-5 flex-1">
-          <h3 className="text-lg font-semibold text-gray-800">{project.title}</h3>
+          <Title className="text-lg font-semibold text-gray-800">{project.title}</Title>
           <p className="mt-2 text-sm leading-relaxed text-gray-600">{project.tagline}</p>
         </div>
 

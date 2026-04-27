@@ -51,6 +51,7 @@ export const metadata: Metadata = {
     title: "Lumis Studios — Software Studio, Nairobi",
     description:
       "We build web applications, mobile apps, cloud infrastructure, and AI-powered solutions for African businesses and beyond.",
+    images: [{ url: `${BASE_URL}/opengraph-image`, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -58,6 +59,7 @@ export const metadata: Metadata = {
     description:
       "We build web applications, mobile apps, cloud infrastructure, and AI-powered solutions for African businesses and beyond.",
     creator: "@lumisstudios",
+    images: [`${BASE_URL}/opengraph-image`],
   },
   icons: {
     icon: "/lumis-favicon.svg",

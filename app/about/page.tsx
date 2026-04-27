@@ -44,6 +44,7 @@ export default function AboutPage() {
         <Container>
           <div className="max-w-xl">
             <SectionHeader
+              as="h1"
               eyebrow="About"
               title="Built in Nairobi."
               description="Lumis Studios is a technology studio focused on shipping software that solves real problems for African businesses and beyond."

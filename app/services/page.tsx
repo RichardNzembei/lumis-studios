@@ -32,6 +32,7 @@ export default function ServicesPage() {
         <Container>
           <div className="max-w-xl">
             <SectionHeader
+              as="h1"
               eyebrow="Services"
               title="Everything from idea to infrastructure."
               description="We work across the full software stack — building, deploying, maintaining, and scaling products for startups and growing businesses."
@@ -55,7 +56,7 @@ export default function ServicesPage() {
                 <Card hover className="flex h-full flex-col gap-5">
                   <div className="text-gray-800">{iconMap[service.icon]}</div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-800">{service.title}</h3>
+                    <h2 className="text-lg font-semibold text-gray-800">{service.title}</h2>
                     <p className="mt-2 text-sm leading-relaxed text-gray-600">
                       {service.description}
                     </p>

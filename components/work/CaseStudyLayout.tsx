@@ -57,24 +57,24 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
           <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
             <div className="md:col-span-2 space-y-8">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
                   Overview
-                </p>
+                </h2>
                 <p className="text-base leading-relaxed text-gray-600">{project.overview}</p>
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
                   Our Role
-                </p>
+                </h2>
                 <p className="text-base leading-relaxed text-gray-600">{project.role}</p>
               </div>
             </div>
 
             <div className="space-y-6">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
                   Tech Stack
-                </p>
+                </h2>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((t) => (
                     <Tag key={t}>{t}</Tag>
@@ -89,9 +89,9 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
       {/* Features */}
       <section className="border-b border-gray-100 py-16">
         <Container>
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">
             Key Features
-          </p>
+          </h2>
           <motion.div
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
             variants={stagger}
@@ -117,9 +117,9 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
       <section className="border-b border-gray-100 py-16">
         <Container>
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
               How It Was Built
-            </p>
+            </h2>
             <p className="text-base leading-relaxed text-gray-600">{project.architecture}</p>
           </div>
         </Container>
@@ -128,9 +128,9 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
       {/* Highlights */}
       <section className="py-16">
         <Container>
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-8">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-8">
             Highlights
-          </p>
+          </h2>
           <motion.ul
             className="grid grid-cols-1 gap-4 sm:grid-cols-2"
             variants={stagger}

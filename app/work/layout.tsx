@@ -10,6 +10,11 @@ export const metadata: Metadata = {
     description:
       "Products built by Lumis Studios — from Kanban tools and e-commerce platforms to farm management apps and fintech. Real software shipped for real users.",
     url: "https://lumisstudios.site/work",
+    images: [{ url: "https://lumisstudios.site/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://lumisstudios.site/opengraph-image"],
   },
 };
 

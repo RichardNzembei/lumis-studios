@@ -22,6 +22,7 @@ export default function WorkPage() {
         <Container>
           <div className="max-w-xl">
             <SectionHeader
+              as="h1"
               eyebrow="Our Work"
               title="Products we've built."
               description="A selection of projects across productivity, e-commerce, agri-tech, supply chain, fintech, and consumer goods."
@@ -42,7 +43,7 @@ export default function WorkPage() {
           >
             {projects.map((project) => (
               <motion.div key={project.slug} variants={fadeUpVariant}>
-                <ProjectCard project={project} />
+                <ProjectCard project={project} headingLevel="h2" />
               </motion.div>
             ))}
           </motion.div>
