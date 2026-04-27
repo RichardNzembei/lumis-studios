@@ -39,12 +39,12 @@ export default function Nav() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center md:flex">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`cursor-pointer px-1 py-2 text-sm transition-colors duration-200 ${
+              className={`cursor-pointer px-4 py-[14px] text-sm transition-colors duration-200 ${
                 pathname === l.href
                   ? "font-medium text-gray-800"
                   : "text-gray-400 hover:text-gray-800"
