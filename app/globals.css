@@ -33,3 +33,7 @@ body {
   color: var(--gray-800);
   font-family: var(--font-outfit), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+header nav a {
+  cursor: pointer;
+}
