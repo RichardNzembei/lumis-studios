@@ -263,14 +263,14 @@ export const projects: Project[] = [
     slug: "budget-hair-supply-chain",
     title: "Budget Hair Supply Chain",
     category: "Supply Chain",
-    tagline: "Real-time inventory and point-of-sale system.",
+    tagline: "Real-time inventory and point-of-sale system — managed monthly by Lumis Studios.",
     description:
-      "An end-to-end supply chain management platform with real-time inventory tracking and POS capabilities. Built to handle the fast-moving dynamics of the hair supply market in Kenya.",
+      "An end-to-end supply chain management platform with real-time inventory tracking and POS capabilities. Built to handle the fast-moving dynamics of the hair supply market in Kenya. Delivered as a monthly subscription — Lumis Studios manages the system, monitors uptime, and ships new features on an ongoing basis.",
     tech: ["Nuxt 4", "Vue 3", "Express.js", "MySQL", "Socket.io", "Nuxt UI"],
     featured: false,
     year: "2024",
     overview:
-      "Budget Hair Supply Chain was built for a fast-moving hair and beauty supply business where stock accuracy is critical — a single oversell means a customer order can't be fulfilled. The platform gives every member of the team — from warehouse staff to sales reps — a live, accurate view of inventory. When stock moves, every connected device updates in under a second. The POS module handles retail transactions on the same system, eliminating the data gap between sales and inventory.",
+      "Budget Hair Supply Chain was built for a fast-moving hair and beauty supply business where stock accuracy is critical — a single oversell means a customer order can't be fulfilled. The platform gives every member of the team — from warehouse staff to sales reps — a live, accurate view of inventory. When stock moves, every connected device updates in under a second. The POS module handles retail transactions on the same system, eliminating the data gap between sales and inventory. The system is delivered as a monthly subscription: Lumis Studios manages hosting, monitors the platform, handles issues, and ships additional features as the business grows — so the client never has to think about the tech.",
     role:
       "Designed the database schema, built the Express.js API, implemented real-time Socket.io stock broadcasting, and developed the Nuxt 4 frontend including the POS and inventory management interfaces.",
     features: [
@@ -304,6 +304,11 @@ export const projects: Project[] = [
         description:
           "The app installs as a PWA on Android and iOS. Field sales reps can check stock availability from their phones without carrying a laptop. Network-first caching ensures data stays fresh even on intermittent connections.",
       },
+      {
+        title: "Monthly Managed Service",
+        description:
+          "The platform is delivered as a subscription. Lumis Studios handles hosting, uptime monitoring, bug fixes, and ongoing feature development — giving the business a dedicated tech team without the cost of hiring one.",
+      },
     ],
     architecture:
       "The backend is an Express.js API connected to MySQL with tables for products, stock levels, stock history, orders, and users. Socket.io runs on the same Express server and maintains a real-time channel for stock updates — when the database is modified, the server emits a broadcast to all connected clients. The frontend is built with Nuxt 4 (Vue 3) and Nuxt UI, using Pinia stores with a Socket.io state machine that tracks connection status, queues pending updates when offline, and flushes them when connectivity is restored. The stock store exposes computed getters for low-stock items (quantity < 5) and out-of-stock items (quantity = 0), giving the UI instant access to reorder-critical data. SweetAlert2 handles modal confirmations for destructive operations like stock adjustments.",
@@ -314,6 +319,7 @@ export const projects: Project[] = [
       "Offline resilience — pending updates queued and flushed on reconnect",
       "Low-stock and out-of-stock computed states surfaced automatically",
       "Role-based access enforced at API level for admin vs worker permissions",
+      "Monthly subscription model — Lumis Studios manages, monitors, and continuously improves the system",
     ],
   },
   {
