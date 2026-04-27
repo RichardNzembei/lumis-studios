@@ -21,6 +21,7 @@ export default function OgImage() {
       >
         <div
           style={{
+            display: "flex",
             fontSize: 20,
             fontWeight: 600,
             letterSpacing: "0.2em",
@@ -33,6 +34,8 @@ export default function OgImage() {
         </div>
         <div
           style={{
+            display: "flex",
+            flexDirection: "column",
             fontSize: 72,
             fontWeight: 700,
             color: "#1d1d1f",
@@ -40,12 +43,12 @@ export default function OgImage() {
             marginBottom: 32,
           }}
         >
-          We build software
-          <br />
-          that works.
+          <span>We build software</span>
+          <span>that works.</span>
         </div>
         <div
           style={{
+            display: "flex",
             fontSize: 24,
             color: "#6e6e73",
             maxWidth: 700,
