@@ -374,6 +374,63 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "lumis-studios-site",
+    title: "Lumis Studios Website",
+    category: "Web",
+    tagline: "The studio's own production website — built and shipped by Lumis Studios.",
+    description:
+      "A fully production-grade marketing and portfolio site for Lumis Studios, built with Next.js 16, Tailwind CSS v4, and Framer Motion 12. Features five pages, animated case study layouts, full SEO coverage, and Vercel deployment.",
+    tech: ["Next.js 16", "TypeScript", "Tailwind CSS v4", "Framer Motion", "Vercel"],
+    featured: false,
+    year: "2025",
+    overview:
+      "Lumis Studios needed a web presence that matched the quality of the work it ships for clients — fast, polished, and production-ready from day one. The site was designed and built in-house: five pages covering the studio's services, work portfolio, about, and contact — with deep-linked case study pages for every project. It runs on the latest Next.js App Router with full static generation, end-to-end SEO coverage, and smooth Framer Motion entrance animations throughout.",
+    role:
+      "Designed and built the complete site — page architecture, component library, animation system, SEO metadata layer, OG image generation, sitemap, JSON-LD structured data, and Vercel deployment.",
+    features: [
+      {
+        title: "Case Study Pages",
+        description:
+          "Each project has a dedicated deep-dive page covering overview, role, key features, architecture, and highlights. Case studies are statically generated at build time from a typed data layer — no CMS required.",
+      },
+      {
+        title: "Framer Motion Animations",
+        description:
+          "Page entrance animations and scroll-triggered reveals across all sections. Staggered feature cards, fade-up text blocks, and smooth layout transitions give the site a premium feel without compromising load performance.",
+      },
+      {
+        title: "Full SEO Coverage",
+        description:
+          "Per-page metadata, Open Graph and Twitter Card tags, canonical URLs, a machine-generated sitemap.xml, robots.txt, and a dynamic OG image rendered server-side via Next.js ImageResponse — all wired up for Google Search Console.",
+      },
+      {
+        title: "JSON-LD Structured Data",
+        description:
+          "Organisation and WebSite schema injected into the root layout. Per-project metadata on case study pages. Structured data helps search engines understand the studio's identity, location, and content hierarchy.",
+      },
+      {
+        title: "Responsive Component Library",
+        description:
+          "A set of reusable primitives — Container, Button, Tag, Card, SectionHeader, Section — built specifically for this site. Every component is typed, responsive, and consistent across all five pages.",
+      },
+      {
+        title: "Vercel Production Deployment",
+        description:
+          "Deployed on Vercel with a custom domain (lumisstudios.site), automatic HTTPS, edge CDN, and preview deployments on every push. Zero infrastructure to manage — the site is always live and globally fast.",
+      },
+    ],
+    architecture:
+      "Built on Next.js 16 App Router with the TypeScript template. All pages are React Server Components by default — only sections with animations are marked 'use client'. Tailwind CSS v4 is configured via @theme inline in globals.css with no tailwind.config.ts. Framer Motion 12 handles all animations with Variants typed explicitly to satisfy the strict Framer type system. The SEO layer uses Next.js built-in Metadata API with per-directory layout.tsx files acting as transparent wrappers that export metadata without forcing client components. The OG image is a Next.js ImageResponse route that renders a branded 1200×630 PNG at build time. The sitemap and robots files are TypeScript modules that Next.js converts to XML and text at the /sitemap.xml and /robots.txt routes automatically.",
+    highlights: [
+      "Built with Next.js 16 App Router — static generation for every page and case study",
+      "Tailwind CSS v4 with @theme inline — no config file, CSS variables as design tokens",
+      "Dynamic OG image via Next.js ImageResponse — branded preview on every social share",
+      "Sitemap submitted to Google Search Console — 11 URLs discovered and indexed",
+      "Zero layout.tsx boilerplate — per-directory metadata with transparent server wrappers",
+      "Deployed on Vercel with custom domain, edge CDN, and automatic HTTPS",
+    ],
+  },
+  {
     slug: "dazel",
     title: "DAZEL®",
     category: "Consumer Goods",
