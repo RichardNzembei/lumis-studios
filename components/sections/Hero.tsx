@@ -27,8 +27,7 @@ export default function Hero() {
             variants={fadeUpVariant}
             className="text-5xl font-semibold leading-tight tracking-tight text-gray-800 md:text-7xl"
           >
-            <span className="block">We build software</span>
-            <span className="block">that works.</span>
+            We build software that works.
           </motion.h1>
 
           <motion.p
