@@ -70,22 +70,33 @@ export default function AboutPage() {
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-gray-800">
                 Nzembei Reuben
               </h2>
-              <p className="mt-2 text-base text-gray-600">Software Engineer, Blockchain Engineer & Founder</p>
+              <p className="mt-1 text-sm text-gray-500">Software Engineer · Blockchain Engineer · Founder</p>
 
-              <ul className="mt-6 flex flex-col gap-3">
-                <li className="flex items-center gap-3 text-sm text-gray-600">
-                  <MapPin size={14} className="shrink-0 text-gray-400" />
-                  Nairobi, Kenya
-                </li>
-                <li className="flex items-center gap-3 text-sm text-gray-600">
-                  <GraduationCap size={14} className="shrink-0 text-gray-400" />
-                  BSc Computer Science — Kabarak University, 2022–2025
-                </li>
-                <li className="flex items-center gap-3 text-sm text-gray-600">
-                  <Briefcase size={14} className="shrink-0 text-gray-400" />
-                  Software Engineer & Blockchain Engineer — <strong>Riverbank Solutions Ltd</strong>
-                </li>
-              </ul>
+              <div className="mt-6 flex flex-col gap-5">
+                {/* Location */}
+                <div className="flex items-start gap-3">
+                  <MapPin size={15} className="mt-0.5 shrink-0 text-gray-400" />
+                  <span className="text-sm text-gray-600">Nairobi, Kenya</span>
+                </div>
+
+                {/* Education */}
+                <div className="flex items-start gap-3">
+                  <GraduationCap size={15} className="mt-0.5 shrink-0 text-gray-400" />
+                  <div>
+                    <p className="text-sm font-medium text-gray-800">BSc Computer Science</p>
+                    <p className="text-xs text-gray-500">Kabarak University</p>
+                  </div>
+                </div>
+
+                {/* Experience */}
+                <div className="flex items-start gap-3">
+                  <Briefcase size={15} className="mt-0.5 shrink-0 text-gray-400" />
+                  <div>
+                    <p className="text-sm font-medium text-gray-800">Software Engineer & Blockchain Engineer</p>
+                    <p className="text-xs text-gray-500">Riverbank Solutions Ltd · Full-time · Nairobi</p>
+                  </div>
+                </div>
+              </div>
 
               <a
                 href="https://www.linkedin.com/in/nzembei-reuben"
