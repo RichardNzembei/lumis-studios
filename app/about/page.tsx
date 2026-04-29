@@ -70,7 +70,7 @@ export default function AboutPage() {
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-gray-800">
                 Nzembei Reuben
               </h2>
-              <p className="mt-2 text-base text-gray-600">Software Engineer & Founder</p>
+              <p className="mt-2 text-base text-gray-600">Software Engineer, Blockchain Engineer & Founder</p>
 
               <ul className="mt-6 flex flex-col gap-3">
                 <li className="flex items-center gap-3 text-sm text-gray-600">
@@ -83,7 +83,7 @@ export default function AboutPage() {
                 </li>
                 <li className="flex items-center gap-3 text-sm text-gray-600">
                   <Briefcase size={14} className="shrink-0 text-gray-400" />
-                  Back End Developer — <strong>Riverbank Solutions Ltd</strong>
+                  Software Engineer & Blockchain Engineer — <strong>Riverbank Solutions Ltd</strong>
                 </li>
               </ul>
 
