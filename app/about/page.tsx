@@ -94,7 +94,7 @@ export default function AboutPage() {
                 className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-gray-800 transition-opacity duration-200 hover:opacity-60"
               >
                 <ExternalLink size={14} />
-                LinkedIn · 5,700+ connections
+                LinkedIn
               </a>
             </motion.div>
 
