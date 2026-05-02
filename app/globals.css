@@ -37,3 +37,9 @@ body {
 header nav a {
   cursor: pointer;
 }
+
+:focus-visible {
+  outline: 2px solid var(--gray-800);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MessageCircle, MapPin, Clock } from "lucide-react";
+import { useState } from "react";
+import { Mail, MessageCircle, MapPin, Clock, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/layout/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -40,7 +41,52 @@ const details = [
   },
 ];
 
+const budgetOptions = [
+  { value: "", label: "Select a range (optional)" },
+  { value: "Under $2k", label: "Under $2,000" },
+  { value: "$2k–$5k", label: "$2,000 – $5,000" },
+  { value: "$5k–$15k", label: "$5,000 – $15,000" },
+  { value: "$15k+", label: "$15,000+" },
+  { value: "Not sure", label: "Not sure yet" },
+];
+
+const inputCls =
+  "w-full rounded-xl border border-gray-100 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-colors duration-200 focus:border-gray-200 focus:outline-none";
+
 export default function ContactPage() {
+  const [form, setForm] = useState({ name: "", email: "", budget: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setErrorMsg(data.error ?? "Something went wrong.");
+        setStatus("error");
+      } else {
+        setStatus("success");
+        setForm({ name: "", email: "", budget: "", message: "" });
+      }
+    } catch {
+      setErrorMsg("Network error. Please try again.");
+      setStatus("error");
+    }
+  }
+
   return (
     <motion.div
       className="pt-[52px]"
@@ -93,36 +139,137 @@ export default function ContactPage() {
                   </div>
                 </motion.div>
               ))}
+
+              {/* Details */}
+              <motion.div variants={fadeUpVariant} className="flex flex-col gap-8">
+                <div>
+                  <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    Details
+                  </h2>
+                  <div className="mt-4 flex flex-col gap-4">
+                    {details.map((d) => (
+                      <div key={d.label} className="flex items-center gap-3 text-sm text-gray-600">
+                        <span className="text-gray-400">{d.icon}</span>
+                        <span className="font-medium text-gray-800">{d.label}:</span>
+                        {d.value}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
             </div>
 
-            {/* Details */}
-            <motion.div variants={fadeUpVariant} className="flex flex-col gap-8">
-              <div>
-                <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
-                  Details
-                </h2>
-                <div className="mt-4 flex flex-col gap-4">
-                  {details.map((d) => (
-                    <div key={d.label} className="flex items-center gap-3 text-sm text-gray-600">
-                      <span className="text-gray-400">{d.icon}</span>
-                      <span className="font-medium text-gray-800">{d.label}:</span>
-                      {d.value}
-                    </div>
-                  ))}
+            {/* Contact form */}
+            <motion.div variants={fadeUpVariant}>
+              {status === "success" ? (
+                <div className="flex flex-col items-start gap-4 rounded-[16px] border border-gray-100 bg-white p-8">
+                  <CheckCircle2 size={24} className="text-gray-800" />
+                  <div>
+                    <p className="text-base font-semibold text-gray-800">Message sent.</p>
+                    <p className="mt-1 text-sm text-gray-600">
+                      We&apos;ll get back to you within 24 hours.
+                    </p>
+                  </div>
+                  <Button variant="light" onClick={() => setStatus("idle")}>
+                    Send another
+                  </Button>
                 </div>
-              </div>
+              ) : (
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="flex flex-col gap-4 rounded-[16px] border border-gray-100 bg-white p-8"
+                >
+                  <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    Send a message
+                  </h2>
 
-              <div>
-                <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
-                  What to include
-                </h2>
-                <ul className="mt-4 flex flex-col gap-2 text-sm text-gray-600">
-                  <li>— What you&apos;re building or the problem you&apos;re solving</li>
-                  <li>— Your timeline and budget range</li>
-                  <li>— Any existing codebase or designs</li>
-                  <li>— How you prefer to work</li>
-                </ul>
-              </div>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="name" className="text-xs font-medium text-gray-600">
+                        Name <span aria-hidden="true">*</span>
+                      </label>
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        autoComplete="name"
+                        placeholder="Your name"
+                        value={form.name}
+                        onChange={handleChange}
+                        className={inputCls}
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="email" className="text-xs font-medium text-gray-600">
+                        Email <span aria-hidden="true">*</span>
+                      </label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        autoComplete="email"
+                        placeholder="you@example.com"
+                        value={form.email}
+                        onChange={handleChange}
+                        className={inputCls}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="budget" className="text-xs font-medium text-gray-600">
+                      Budget range
+                    </label>
+                    <select
+                      id="budget"
+                      name="budget"
+                      value={form.budget}
+                      onChange={handleChange}
+                      className={inputCls}
+                    >
+                      {budgetOptions.map((o) => (
+                        <option key={o.value} value={o.value}>
+                          {o.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="message" className="text-xs font-medium text-gray-600">
+                      Message <span aria-hidden="true">*</span>
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={5}
+                      placeholder="Tell us what you're building, your timeline, and any other relevant details."
+                      value={form.message}
+                      onChange={handleChange}
+                      className={`${inputCls} resize-none`}
+                    />
+                  </div>
+
+                  {status === "error" && (
+                    <p role="alert" className="text-sm text-red-600">
+                      {errorMsg}
+                    </p>
+                  )}
+
+                  <Button
+                    variant="dark"
+                    type="submit"
+                    className={status === "loading" ? "opacity-60 pointer-events-none" : ""}
+                  >
+                    {status === "loading" ? "Sending…" : "Send Message"}
+                  </Button>
+                </form>
+              )}
             </motion.div>
           </motion.div>
         </Container>

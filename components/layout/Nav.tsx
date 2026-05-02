@@ -23,7 +23,7 @@ export default function Nav() {
       className="fixed top-0 left-0 right-0 z-50 h-[52px] border-b border-gray-100 bg-white/80 backdrop-blur-md"
     >
       <div className="mx-auto flex h-full max-w-[980px] items-center justify-between px-5">
-        <Link href="/" onClick={() => setOpen(false)} aria-label="Lumis Studios">
+        <Link href="/" onClick={() => setOpen(false)} aria-label="Lumis Studios — Home">
           <Image
             src="/lumis-logo-primary-light.svg"
             alt="Lumis Studios"
@@ -33,12 +33,17 @@ export default function Nav() {
           />
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center md:flex">
+        {/* Desktop nav — hidden from keyboard/AT when mobile menu is open */}
+        <nav
+          className="hidden items-center md:flex"
+          aria-label="Main navigation"
+          inert={open || undefined}
+        >
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
+              aria-current={pathname === l.href ? "page" : undefined}
               className={`cursor-pointer px-4 py-[14px] text-sm transition-colors duration-200 ${
                 pathname === l.href
                   ? "font-medium text-gray-800"
@@ -55,6 +60,8 @@ export default function Nav() {
           className="flex items-center justify-center text-gray-800 md:hidden"
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -62,13 +69,17 @@ export default function Nav() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="border-t border-gray-100 bg-white/95 px-5 py-4 md:hidden">
-          <nav className="flex flex-col gap-4">
+        <div
+          id="mobile-menu"
+          className="border-t border-gray-100 bg-white/95 px-5 py-4 md:hidden"
+        >
+          <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
+                aria-current={pathname === l.href ? "page" : undefined}
                 className={`cursor-pointer text-sm transition-colors duration-200 ${
                   pathname === l.href
                     ? "font-medium text-gray-800"

@@ -17,23 +17,23 @@ export default function Process() {
           description="We keep things simple, transparent, and focused on outcomes."
         />
 
-        <motion.div
+        <motion.ol
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4"
+          className="mt-12 grid list-none grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4"
         >
           {processSteps.map((step) => (
-            <motion.div key={step.number} variants={fadeUpVariant} className="flex flex-col gap-3">
-              <span className="text-6xl font-bold leading-none text-gray-100">
+            <motion.li key={step.number} variants={fadeUpVariant} className="flex flex-col gap-3">
+              <span className="text-6xl font-bold leading-none text-gray-100" aria-hidden="true">
                 {step.number}
               </span>
               <h3 className="text-base font-semibold text-gray-800">{step.title}</h3>
               <p className="text-sm leading-relaxed text-gray-600">{step.description}</p>
-            </motion.div>
+            </motion.li>
           ))}
-        </motion.div>
+        </motion.ol>
       </Container>
     </Section>
   );

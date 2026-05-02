@@ -16,7 +16,6 @@ export async function generateMetadata({
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
   const url = `https://lumisstudios.site/work/${slug}`;
-  const ogImage = { url: "https://lumisstudios.site/opengraph-image", width: 1200, height: 630 };
   return {
     title: `${project.title} — ${project.category} Case Study`,
     description: `${project.tagline} — A case study by Lumis Studios, Nairobi.`,
@@ -25,13 +24,11 @@ export async function generateMetadata({
       title: `${project.title} — Lumis Studios`,
       description: project.tagline,
       url,
-      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: `${project.title} — Lumis Studios`,
       description: project.tagline,
-      images: ["https://lumisstudios.site/opengraph-image"],
     },
   };
 }

@@ -3,6 +3,8 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import { MotionProvider } from "@/components/MotionProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -112,9 +114,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={outfit.variable}>
       <body className="min-h-screen flex flex-col antialiased">
-        <Nav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-gray-800 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
+        >
+          Skip to content
+        </a>
+        <MotionProvider>
+          <Nav />
+          <main id="main-content" className="flex-1">{children}</main>
+          <Footer />
+        </MotionProvider>
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

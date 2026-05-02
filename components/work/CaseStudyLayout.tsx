@@ -21,8 +21,27 @@ const stagger: Variants = {
   visible: { transition: { staggerChildren: 0.08 } },
 };
 
+const BASE_URL = "https://lumisstudios.site";
+
 export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.tagline,
+    url: `${BASE_URL}/work/${project.slug}`,
+    creator: { "@id": `${BASE_URL}/#organization` },
+    keywords: project.tech.join(", "),
+    genre: project.category,
+    dateCreated: project.year,
+  };
+
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
     <motion.div
       className="min-h-screen bg-white pt-[52px]"
       initial={{ opacity: 0, y: 12 }}
@@ -189,5 +208,6 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
         </Container>
       </section>
     </motion.div>
+    </>
   );
 }
