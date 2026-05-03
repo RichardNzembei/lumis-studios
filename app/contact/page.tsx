@@ -41,20 +41,12 @@ const details = [
   },
 ];
 
-const budgetOptions = [
-  { value: "", label: "Select a range (optional)" },
-  { value: "Under $2k", label: "Under $2,000" },
-  { value: "$2k–$5k", label: "$2,000 – $5,000" },
-  { value: "$5k–$15k", label: "$5,000 – $15,000" },
-  { value: "$15k+", label: "$15,000+" },
-  { value: "Not sure", label: "Not sure yet" },
-];
 
 const inputCls =
   "w-full rounded-xl border border-gray-100 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-colors duration-200 focus:border-gray-200 focus:outline-none";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", budget: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -79,7 +71,7 @@ export default function ContactPage() {
         setStatus("error");
       } else {
         setStatus("success");
-        setForm({ name: "", email: "", budget: "", message: "" });
+        setForm({ name: "", email: "", subject: "", message: "" });
       }
     } catch {
       setErrorMsg("Network error. Please try again.");
@@ -221,22 +213,18 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="budget" className="text-xs font-medium text-gray-600">
-                      Budget range
+                    <label htmlFor="subject" className="text-xs font-medium text-gray-600">
+                      Subject
                     </label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      value={form.budget}
+                    <input
+                      id="subject"
+                      name="subject"
+                      type="text"
+                      placeholder="e.g. Mobile app for logistics startup"
+                      value={form.subject}
                       onChange={handleChange}
                       className={inputCls}
-                    >
-                      {budgetOptions.map((o) => (
-                        <option key={o.value} value={o.value}>
-                          {o.label}
-                        </option>
-                      ))}
-                    </select>
+                    />
                   </div>
 
                   <div className="flex flex-col gap-1.5">

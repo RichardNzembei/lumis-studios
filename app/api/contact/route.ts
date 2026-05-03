@@ -4,7 +4,7 @@ import { Resend } from "resend";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, budget, message } = body;
+    const { name, email, subject, message } = body;
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
@@ -16,19 +16,23 @@ export async function POST(request: Request) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    await resend.emails.send({
-      from: "Lumis Studios Contact <noreply@lumisstudios.site>",
+    const { error } = await resend.emails.send({
+      from: "Lumis Studios <onboarding@resend.dev>",
       to: "studioslumis@gmail.com",
       replyTo: email,
-      subject: `New enquiry from ${name}`,
+      subject: subject ? `${subject} — from ${name}` : `New enquiry from ${name}`,
       text: [
         `Name: ${name}`,
         `Email: ${email}`,
-        `Budget: ${budget || "Not specified"}`,
+        `Subject: ${subject || "Not specified"}`,
         "",
         `Message:\n${message}`,
       ].join("\n"),
     });
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch {
