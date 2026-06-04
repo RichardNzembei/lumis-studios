@@ -31,7 +31,12 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      // Log the provider error for debugging, but never expose it to visitors
+      console.error("Resend error:", error);
+      return NextResponse.json(
+        { error: "We couldn't send your message right now. Please try again, or email us directly." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ success: true });

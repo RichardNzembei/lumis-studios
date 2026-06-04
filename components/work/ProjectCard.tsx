@@ -16,7 +16,7 @@ export function ProjectCard({ project, headingLevel: Title = "h3" }: ProjectCard
     <motion.div whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
       <Link
         href={`/work/${project.slug}`}
-        className="group flex h-full flex-col rounded-[16px] border border-gray-100 bg-white p-6 transition-colors duration-200 hover:border-gray-200"
+        className="card-surface group flex h-full flex-col rounded-[16px] border border-gray-100 p-6 transition-colors duration-200 hover:border-gray-200"
       >
         <div className="flex items-start justify-between gap-4">
           <Tag>{project.category}</Tag>

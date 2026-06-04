@@ -23,6 +23,7 @@ export default function Footer() {
               alt="Lumis Studios — Home"
               width={96}
               height={41}
+              className="dark:invert"
             />
             <p className="mt-2 text-xs text-gray-400">Nairobi, Kenya</p>
           </div>

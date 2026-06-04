@@ -1,27 +1,19 @@
-"use client";
-
 import Link from "next/link";
-import { motion, type Variants } from "framer-motion";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Tag } from "@/components/ui/Tag";
+import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { PageFade, Reveal, RevealGroup } from "@/components/motion/Reveal";
 import type { Project } from "@/lib/data";
 
 interface CaseStudyLayoutProps {
   project: Project;
 }
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" as const } },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-
 const BASE_URL = "https://lumisstudios.site";
+
+const inlineLink =
+  "underline underline-offset-2 decoration-accent/50 transition-colors duration-200 hover:text-accent";
 
 export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
   const jsonLd = {
@@ -42,12 +34,7 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
-    <motion.div
-      className="min-h-screen bg-white pt-[52px]"
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-    >
+    <PageFade className="min-h-screen bg-white pt-[52px]">
       {/* Hero */}
       <section className="border-b border-gray-100 py-16">
         <Container>
@@ -107,28 +94,21 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
 
       {/* Features */}
       <section className="border-b border-gray-100 py-16">
-        <Container>
+        <Container variant="wide">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-10">
             Key Features
           </h2>
-          <motion.div
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-          >
+          <RevealGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {project.features.map((feature) => (
-              <motion.div
+              <Reveal
                 key={feature.title}
-                variants={fadeUp}
-                className="rounded-2xl border border-gray-100 bg-white p-6 transition-colors duration-200 hover:border-gray-200"
+                className="card-surface rounded-2xl border border-gray-100 p-6 transition-colors duration-200 hover:border-gray-200"
               >
                 <h3 className="text-sm font-semibold text-gray-800">{feature.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-gray-500">{feature.description}</p>
-              </motion.div>
+              </Reveal>
             ))}
-          </motion.div>
+          </RevealGroup>
         </Container>
       </section>
 
@@ -146,31 +126,18 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
 
       {/* Highlights */}
       <section className="py-16">
-        <Container>
+        <Container variant="wide">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-8">
             Highlights
           </h2>
-          <motion.ul
-            className="grid grid-cols-1 gap-4 sm:grid-cols-2"
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-          >
+          <RevealGroup as="ul" className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {project.highlights.map((item) => (
-              <motion.li
-                key={item}
-                variants={fadeUp}
-                className="flex items-start gap-3"
-              >
-                <CheckCircle2
-                  size={16}
-                  className="mt-0.5 shrink-0 text-gray-400"
-                />
+              <Reveal as="li" key={item} className="flex items-start gap-3">
+                <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-accent" />
                 <span className="text-sm leading-relaxed text-gray-600">{item}</span>
-              </motion.li>
+              </Reveal>
             ))}
-          </motion.ul>
+          </RevealGroup>
         </Container>
       </section>
 
@@ -186,16 +153,17 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
                 Want something like this for your business?
               </p>
               <p className="mt-1 text-sm text-gray-600">
-                We build <Link href="/services" className="underline underline-offset-2 hover:text-gray-800 transition-colors duration-200">web apps, mobile apps, and cloud infrastructure</Link> for African businesses.
+                We build{" "}
+                <Link href="/services" className={inlineLink}>
+                  web apps, mobile apps, and cloud infrastructure
+                </Link>{" "}
+                for African businesses.
               </p>
             </div>
-            <div className="flex flex-wrap gap-3 shrink-0">
-              <Link
-                href="/contact"
-                className="rounded-[980px] bg-gray-800 px-6 py-2.5 text-sm font-medium text-white transition-opacity duration-200 hover:opacity-80"
-              >
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <Button variant="dark" href="/contact">
                 Start a Project
-              </Link>
+              </Button>
               <Link
                 href="/work"
                 className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors duration-200 hover:text-gray-800"
@@ -207,7 +175,7 @@ export function CaseStudyLayout({ project }: CaseStudyLayoutProps) {
           </div>
         </Container>
       </section>
-    </motion.div>
+    </PageFade>
     </>
   );
 }

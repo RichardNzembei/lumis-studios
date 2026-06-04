@@ -1,23 +1,18 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/layout/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ProjectCard } from "@/components/work/ProjectCard";
+import { PageFade, Reveal, RevealGroup } from "@/components/motion/Reveal";
 import CTA from "@/components/sections/CTA";
 import { projects } from "@/lib/data";
-import { staggerContainer, fadeUpVariant } from "@/lib/utils";
+
+const inlineLink =
+  "underline underline-offset-2 decoration-accent/50 transition-colors duration-200 hover:text-accent";
 
 export default function WorkPage() {
   return (
-    <motion.div
-      className="pt-[52px]"
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-    >
+    <PageFade className="pt-[52px]">
       {/* Header */}
       <section className="border-b border-gray-100 py-16">
         <Container>
@@ -30,11 +25,11 @@ export default function WorkPage() {
             />
             <p className="mt-4 text-sm text-gray-500">
               Want to work with us?{" "}
-              <Link href="/contact" className="underline underline-offset-2 hover:text-gray-800 transition-colors duration-200">
+              <Link href="/contact" className={inlineLink}>
                 Start a project
               </Link>{" "}
               or{" "}
-              <Link href="/services" className="underline underline-offset-2 hover:text-gray-800 transition-colors duration-200">
+              <Link href="/services" className={inlineLink}>
                 explore our services
               </Link>.
             </p>
@@ -44,24 +39,18 @@ export default function WorkPage() {
 
       {/* Projects grid */}
       <Section>
-        <Container>
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="grid grid-cols-1 gap-5 sm:grid-cols-2"
-          >
+        <Container variant="wide">
+          <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {projects.map((project) => (
-              <motion.div key={project.slug} variants={fadeUpVariant}>
+              <Reveal key={project.slug}>
                 <ProjectCard project={project} headingLevel="h2" />
-              </motion.div>
+              </Reveal>
             ))}
-          </motion.div>
+          </RevealGroup>
         </Container>
       </Section>
 
       <CTA />
-    </motion.div>
+    </PageFade>
   );
 }

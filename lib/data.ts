@@ -38,7 +38,9 @@ export interface ProcessStep {
 }
 
 export interface Stat {
-  value: string;
+  value: number;
+  prefix?: string;
+  suffix?: string;
   label: string;
 }
 
@@ -542,8 +544,8 @@ export const processSteps: ProcessStep[] = [
 ];
 
 export const stats: Stat[] = [
-  { value: "6+", label: "Products Shipped" },
-  { value: "41+", label: "Technologies" },
-  { value: "3+", label: "Years Building" },
-  { value: "100%", label: "Open Communication" },
+  { value: 6, suffix: "+", label: "Products Shipped" },
+  { value: 7, label: "Industries Served" },
+  { value: 3, suffix: "+", label: "Years Building" },
+  { value: 24, prefix: "<", suffix: "h", label: "Response Time" },
 ];

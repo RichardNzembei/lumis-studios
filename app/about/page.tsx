@@ -1,12 +1,9 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ExternalLink, MapPin, GraduationCap, Briefcase } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/layout/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { PageFade, Reveal, RevealGroup } from "@/components/motion/Reveal";
 import CTA from "@/components/sections/CTA";
-import { fadeUpVariant, staggerContainer } from "@/lib/utils";
 
 const values = [
   {
@@ -33,12 +30,7 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <motion.div
-      className="pt-[52px]"
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-    >
+    <PageFade className="pt-[52px]">
       {/* Header */}
       <section className="border-b border-gray-100 py-16">
         <Container>
@@ -56,14 +48,8 @@ export default function AboutPage() {
       {/* Founder */}
       <Section>
         <Container>
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="grid grid-cols-1 gap-12 md:grid-cols-2"
-          >
-            <motion.div variants={fadeUpVariant}>
+          <RevealGroup className="grid grid-cols-1 gap-12 md:grid-cols-2">
+            <Reveal>
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
                 Founder
               </p>
@@ -102,14 +88,14 @@ export default function AboutPage() {
                 href="https://www.linkedin.com/in/nzembei-reuben"
                 rel="noopener noreferrer"
                 target="_blank"
-                className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-gray-800 transition-opacity duration-200 hover:opacity-60"
+                className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-gray-800 transition-colors duration-200 hover:text-accent"
               >
                 <ExternalLink size={14} />
                 LinkedIn
               </a>
-            </motion.div>
+            </Reveal>
 
-            <motion.div variants={fadeUpVariant} className="flex flex-col gap-4">
+            <Reveal className="flex flex-col gap-4">
               <p className="text-sm leading-relaxed text-gray-600">
                 Lumis Studios was founded with a simple belief: that quality software shouldn&apos;t
                 require a US-sized budget. African startups and businesses deserve the same technical
@@ -124,41 +110,34 @@ export default function AboutPage() {
                 The studio operates at the intersection of speed and craft. Fast enough to compete
                 with the pace of modern startups. Careful enough to build systems that scale.
               </p>
-            </motion.div>
-          </motion.div>
+            </Reveal>
+          </RevealGroup>
         </Container>
       </Section>
 
       {/* Values */}
       <Section bg="gray">
-        <Container>
+        <Container variant="wide">
           <SectionHeader
             eyebrow="Values"
             title="How we think."
           />
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2"
-          >
+          <RevealGroup className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
             {values.map((v) => (
-              <motion.div
+              <Reveal
                 key={v.title}
-                variants={fadeUpVariant}
-                className="rounded-[16px] border border-gray-100 bg-white p-6"
+                className="card-surface rounded-[16px] border border-gray-100 p-6"
               >
                 <h3 className="font-semibold text-gray-800">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-gray-600">{v.description}</p>
-              </motion.div>
+              </Reveal>
             ))}
-          </motion.div>
+          </RevealGroup>
         </Container>
       </Section>
 
       <CTA />
-    </motion.div>
+    </PageFade>
   );
 }

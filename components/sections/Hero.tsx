@@ -8,7 +8,7 @@ import { fadeUpVariant, staggerContainer } from "@/lib/utils";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center bg-white pt-[52px]">
+    <section className="relative flex min-h-[88svh] flex-col items-center justify-center bg-white pt-[52px]">
       <Container>
         <motion.div
           variants={staggerContainer}
@@ -18,7 +18,7 @@ export default function Hero() {
         >
           <motion.p
             variants={fadeUpVariant}
-            className="text-xs font-semibold uppercase tracking-widest text-gray-400"
+            className="text-xs font-semibold uppercase tracking-widest text-accent"
           >
             Lumis Studios — Nairobi, Kenya
           </motion.p>

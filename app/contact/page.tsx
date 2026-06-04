@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/layout/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
-import { fadeUpVariant, staggerContainer } from "@/lib/utils";
+import { cn, fadeUpVariant, staggerContainer } from "@/lib/utils";
 
 const contactMethods = [
   {
@@ -41,21 +41,63 @@ const details = [
   },
 ];
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+type FieldName = "name" | "email" | "subject" | "message";
+type FieldErrors = Partial<Record<FieldName, string>>;
+
+function validateField(name: FieldName, value: string): string | undefined {
+  switch (name) {
+    case "name":
+      return value.trim() ? undefined : "Please enter your name.";
+    case "email":
+      if (!value.trim()) return "Please enter your email address.";
+      return EMAIL_RE.test(value) ? undefined : "Please enter a valid email address.";
+    case "message":
+      return value.trim() ? undefined : "Please tell us a little about your project.";
+    default:
+      return undefined;
+  }
+}
 
 const inputCls =
-  "w-full rounded-xl border border-gray-100 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-colors duration-200 focus:border-gray-200 focus:outline-none";
+  "input-surface w-full rounded-xl border border-gray-100 px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-colors duration-200 focus:outline-none focus:border-accent/60 focus:ring-2 focus:ring-accent-soft";
+const inputErrorCls = "border-red-400 dark:border-red-500/60";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const name = e.target.name as FieldName;
+    const value = e.target.value;
+    setForm((f) => ({ ...f, [name]: value }));
+    // Clear a visible error as soon as the field becomes valid again
+    if (errors[name] && !validateField(name, value)) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  }
+
+  function handleBlur(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const name = e.target.name as FieldName;
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, e.target.value) }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const nextErrors: FieldErrors = {};
+    (["name", "email", "message"] as FieldName[]).forEach((field) => {
+      const error = validateField(field, form[field]);
+      if (error) nextErrors[field] = error;
+    });
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
+      return;
+    }
+
     setStatus("loading");
     setErrorMsg("");
 
@@ -72,6 +114,7 @@ export default function ContactPage() {
       } else {
         setStatus("success");
         setForm({ name: "", email: "", subject: "", message: "" });
+        setErrors({});
       }
     } catch {
       setErrorMsg("Network error. Please try again.");
@@ -82,9 +125,9 @@ export default function ContactPage() {
   return (
     <motion.div
       className="pt-[52px]"
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
     >
       {/* Header */}
       <section className="border-b border-gray-100 py-16">
@@ -94,7 +137,7 @@ export default function ContactPage() {
               as="h1"
               eyebrow="Contact"
               title="Let's talk."
-              description="Tell us what you're working on. We'll get back to you within 24 hours."
+              description="Tell us what you're working on — a detailed brief, a quick question, or just an idea."
             />
           </div>
         </Container>
@@ -102,7 +145,7 @@ export default function ContactPage() {
 
       {/* Contact options */}
       <Section>
-        <Container>
+        <Container variant="wide">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -116,7 +159,7 @@ export default function ContactPage() {
                 <motion.div
                   key={method.label}
                   variants={fadeUpVariant}
-                  className="rounded-[16px] border border-gray-100 bg-white p-6"
+                  className="card-surface rounded-[16px] border border-gray-100 p-6"
                 >
                   <div className="flex items-center gap-3 text-gray-800">
                     {method.icon}
@@ -154,8 +197,8 @@ export default function ContactPage() {
             {/* Contact form */}
             <motion.div variants={fadeUpVariant}>
               {status === "success" ? (
-                <div className="flex flex-col items-start gap-4 rounded-[16px] border border-gray-100 bg-white p-8">
-                  <CheckCircle2 size={24} className="text-gray-800" />
+                <div className="card-surface flex flex-col items-start gap-4 rounded-[16px] border border-gray-100 p-8">
+                  <CheckCircle2 size={24} className="text-accent" />
                   <div>
                     <p className="text-base font-semibold text-gray-800">Message sent.</p>
                     <p className="mt-1 text-sm text-gray-600">
@@ -170,7 +213,7 @@ export default function ContactPage() {
                 <form
                   onSubmit={handleSubmit}
                   noValidate
-                  className="flex flex-col gap-4 rounded-[16px] border border-gray-100 bg-white p-8"
+                  className="card-surface flex flex-col gap-4 rounded-[16px] border border-gray-100 p-8"
                 >
                   <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
                     Send a message
@@ -190,8 +233,16 @@ export default function ContactPage() {
                         placeholder="Your name"
                         value={form.name}
                         onChange={handleChange}
-                        className={inputCls}
+                        onBlur={handleBlur}
+                        aria-invalid={errors.name ? true : undefined}
+                        aria-describedby={errors.name ? "name-error" : undefined}
+                        className={cn(inputCls, errors.name && inputErrorCls)}
                       />
+                      {errors.name && (
+                        <p id="name-error" className="text-xs text-red-600 dark:text-red-400">
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
 
                     <div className="flex flex-col gap-1.5">
@@ -207,8 +258,16 @@ export default function ContactPage() {
                         placeholder="you@example.com"
                         value={form.email}
                         onChange={handleChange}
-                        className={inputCls}
+                        onBlur={handleBlur}
+                        aria-invalid={errors.email ? true : undefined}
+                        aria-describedby={errors.email ? "email-error" : undefined}
+                        className={cn(inputCls, errors.email && inputErrorCls)}
                       />
+                      {errors.email && (
+                        <p id="email-error" className="text-xs text-red-600 dark:text-red-400">
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -239,21 +298,25 @@ export default function ContactPage() {
                       placeholder="Tell us what you're building, your timeline, and any other relevant details."
                       value={form.message}
                       onChange={handleChange}
-                      className={`${inputCls} resize-none`}
+                      onBlur={handleBlur}
+                      aria-invalid={errors.message ? true : undefined}
+                      aria-describedby={errors.message ? "message-error" : undefined}
+                      className={cn(inputCls, "resize-none", errors.message && inputErrorCls)}
                     />
+                    {errors.message && (
+                      <p id="message-error" className="text-xs text-red-600 dark:text-red-400">
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
 
                   {status === "error" && (
-                    <p role="alert" className="text-sm text-red-600">
+                    <p role="alert" className="text-sm text-red-600 dark:text-red-400">
                       {errorMsg}
                     </p>
                   )}
 
-                  <Button
-                    variant="dark"
-                    type="submit"
-                    className={status === "loading" ? "opacity-60 pointer-events-none" : ""}
-                  >
+                  <Button variant="dark" type="submit" loading={status === "loading"}>
                     {status === "loading" ? "Sending…" : "Send Message"}
                   </Button>
                 </form>

@@ -1,14 +1,37 @@
 @import "tailwindcss";
 
+/* Theme is driven by data-theme on <html>, set pre-paint by the inline script
+   in app/layout.tsx (localStorage preference, falling back to system). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
   --white: #ffffff;
   --gray-50: #f5f5f7;
   --gray-100: #e8e8ed;
   --gray-200: #d2d2d7;
-  --gray-400: #86868b;
-  --gray-600: #6e6e73;
+  /* 4.6:1 on white — WCAG AA for the small text this is used on */
+  --gray-400: #717176;
+  --gray-500: #646469;
+  --gray-600: #58585d;
   --gray-800: #1d1d1f;
   --black: #000000;
+  /* Warm amber accent — "Lumis" = light. Used sparingly. */
+  --accent: #b45309;
+  --accent-soft: rgba(180, 83, 9, 0.28);
+}
+
+:root[data-theme="dark"] {
+  --white: #0a0a0c;
+  --gray-50: #151517;
+  --gray-100: #26262a;
+  --gray-200: #3a3a3e;
+  --gray-400: #98989d;
+  --gray-500: #a1a1a6;
+  --gray-600: #c7c7cc;
+  --gray-800: #f5f5f7;
+  --black: #ffffff;
+  --accent: #e8a33d;
+  --accent-soft: rgba(232, 163, 61, 0.32);
 }
 
 @theme inline {
@@ -18,14 +41,22 @@
   --color-gray-100: var(--gray-100);
   --color-gray-200: var(--gray-200);
   --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
   --color-gray-600: var(--gray-600);
   --color-gray-800: var(--gray-800);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-outfit);
 }
 
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {
@@ -34,12 +65,51 @@ body {
   font-family: var(--font-outfit), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* Faint warm light source at the top so the black glass has something to catch */
+:root[data-theme="dark"] body {
+  background-image: radial-gradient(
+    1200px 600px at 50% -10%,
+    rgba(232, 163, 61, 0.05),
+    transparent 60%
+  );
+}
+
+/* Card surface — plain white in light mode, black glass in dark mode */
+.card-surface {
+  background-color: var(--white);
+}
+
+:root[data-theme="dark"] .card-surface {
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.02) 45%,
+      rgba(255, 255, 255, 0) 70%
+    ),
+    rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Form input surface — translucent on glass in dark mode */
+.input-surface {
+  background-color: var(--white);
+}
+
+:root[data-theme="dark"] .input-surface {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
 header nav a {
   cursor: pointer;
 }
 
 :focus-visible {
-  outline: 2px solid var(--gray-800);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
