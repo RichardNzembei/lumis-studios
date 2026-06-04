@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* Theme is driven by data-theme on <html>, set pre-paint by the inline script
-   in app/layout.tsx (localStorage preference, falling back to system). */
+   in app/layout.tsx (localStorage preference, defaulting to light). */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {

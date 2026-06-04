@@ -114,11 +114,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={outfit.variable} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col antialiased">
-        {/* Set theme before paint: saved preference, falling back to system */}
+        {/* Set theme before paint: saved preference, defaulting to light */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '(function(){try{var t=localStorage.getItem("theme");var d=window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=t==="light"||t==="dark"?t:d?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}})()',
+              '(function(){try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="dark"?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}})()',
           }}
         />
         <a

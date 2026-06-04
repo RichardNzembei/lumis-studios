@@ -5,7 +5,8 @@ import { Moon, Sun } from "lucide-react";
 
 /**
  * The theme lives on <html data-theme="...">, set pre-paint by the inline
- * script in app/layout.tsx. React just mirrors that external state here.
+ * script in app/layout.tsx (saved preference, defaulting to light).
+ * React just mirrors that external state here.
  */
 
 function subscribe(onStoreChange: () => void) {
@@ -15,26 +16,14 @@ function subscribe(onStoreChange: () => void) {
     attributes: true,
     attributeFilter: ["data-theme"],
   });
-
-  // Follow system changes only while the user hasn't picked a theme
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
-  function onMediaChange(e: MediaQueryListEvent) {
-    if (localStorage.getItem("theme")) return;
-    document.documentElement.dataset.theme = e.matches ? "dark" : "light";
-  }
-  media.addEventListener("change", onMediaChange);
-
-  return () => {
-    observer.disconnect();
-    media.removeEventListener("change", onMediaChange);
-  };
+  return () => observer.disconnect();
 }
 
 function getSnapshot() {
   return document.documentElement.dataset.theme === "dark";
 }
 
-// Server placeholder — the pre-paint script sets the real value before hydration
+// Server placeholder — matches the light default
 function getServerSnapshot() {
   return false;
 }
