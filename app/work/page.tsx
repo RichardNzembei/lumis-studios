@@ -21,7 +21,7 @@ export default function WorkPage() {
               as="h1"
               eyebrow="Our Work"
               title="Products we've built."
-              description="A selection of projects across productivity, e-commerce, agri-tech, supply chain, fintech, and consumer goods."
+              description="A selection of projects across proptech, productivity, e-commerce, agri-tech, supply chain, fintech, and internal tooling."
             />
             <p className="mt-4 text-sm text-gray-500">
               Want to work with us?{" "}

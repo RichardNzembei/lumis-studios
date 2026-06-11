@@ -91,6 +91,120 @@ export const services: Service[] = [
 
 export const projects: Project[] = [
   {
+    slug: "makazi",
+    title: "Makazi",
+    category: "PropTech",
+    tagline: "Multi-tenant property management built for the Kenyan market.",
+    description:
+      "A multi-tenant property management platform for Kenyan landlords, agencies, HOAs, and SACCOs. Makazi runs the full property lifecycle — tenants, leases, automated billing, M-Pesa rent collection, KRA tax compliance, and maintenance — across four dedicated portals for managers, owners, tenants, and caretakers. Built on NestJS and PostgreSQL with strict schema-per-tenant isolation.",
+    tech: ["NestJS", "TypeScript", "PostgreSQL", "TypeORM", "Redis", "BullMQ", "Next.js", "M-Pesa", "Docker"],
+    featured: true,
+    year: "2026",
+    overview:
+      "Property management in Kenya is held together by WhatsApp threads, spreadsheets, manual bank reconciliation, and SMS rent reminders. Makazi replaces that with a single integrated system that scales from a solo landlord with a handful of units to an agency managing hundreds of units across many owners. It is a true multi-tenant SaaS: every organisation gets its own isolated PostgreSQL schema, so data can never leak between tenants. The platform is built specifically for the realities of the Kenyan market — M-Pesa-native collection, KRA tax compliance, and offline-capable tooling for caretakers in the field.",
+    role:
+      "Designed and built the entire platform end-to-end — the multi-tenant database architecture, the NestJS API and its 24 domain modules, M-Pesa payment integration, the Kenya tax-compliance engine, the background job system, and all four Next.js portals.",
+    features: [
+      {
+        title: "Multi-Tenant Architecture",
+        description:
+          "Every organisation runs in its own isolated PostgreSQL schema, switched per-request via tenant middleware. Combined with role and property-scope guards, one org's managers, owners, and tenants can never see another's data — isolation is enforced at the database level, not just in application code.",
+      },
+      {
+        title: "M-Pesa Rent Collection",
+        description:
+          "Native Safaricom Daraja integration covering STK Push (tenant-initiated payment), C2B paybill confirmation, and B2C owner payouts. Incoming payments are auto-matched to invoices and allocated FIFO to the oldest outstanding balance; ambiguous payments drop into a suspense queue for an accountant to reconcile manually.",
+      },
+      {
+        title: "Automated Billing & Escalation",
+        description:
+          "Monthly invoices are generated for every active lease by a scheduled job, with configurable line-item templates, 16% VAT on commercial rent, rent escalation rules, and idempotent late-penalty application. Mid-month move-ins are prorated and rent-free periods are honoured automatically.",
+      },
+      {
+        title: "KRA Tax Compliance",
+        description:
+          "Built for Kenyan tax law: 10%/30% withholding-tax certificates for resident and non-resident owners, 7.5% MRI on residential rental income, 16% VAT remittance reporting, and automatic eTIMS submission of commercial invoices to the KRA.",
+      },
+      {
+        title: "Four Dedicated Portals",
+        description:
+          "Separate, role-appropriate interfaces for the management team, property owners, tenants, and caretakers. The caretaker app is an offline-capable PWA — meter readings and cash receipts captured in the field are queued locally and synced when connectivity returns.",
+      },
+      {
+        title: "Maintenance & Vendor Management",
+        description:
+          "Tenants raise work requests with photos; managers assign vendors and track cost and SLA. An hourly job checks for SLA breaches and escalates unresolved tickets, while vendor ratings are computed from request history.",
+      },
+    ],
+    architecture:
+      "The backend is a NestJS 11 API in TypeScript with 24 domain modules, backed by PostgreSQL 16 via TypeORM using a schema-per-tenant pattern — a request is resolved to its organisation by tenant middleware, which sets the Postgres search_path before any repository runs. Redis and BullMQ drive background work: monthly invoice generation, daily rent reminders, hourly maintenance-SLA checks, and asynchronous M-Pesa callback processing (which acknowledges Safaricom inside its 15-second window, then processes off the request path). An in-process EventEmitter2 bus decouples side effects — issuing an invoice fans out to SMS/email dispatch, webhook delivery, and eTIMS submission. All money, tax, and owner-statement math uses decimal.js to avoid floating-point drift. The four frontends are Next.js App Router apps styled with Tailwind and Radix UI. Security is hardened throughout: bcrypt password hashing, JWT with refresh-token rotation, TOTP MFA, AES-GCM-encrypted per-org callback secrets, HMAC-signed webhooks, and an SSRF guard on outbound delivery. The whole stack ships as multi-stage Docker images.",
+    highlights: [
+      "Schema-per-tenant isolation in PostgreSQL — one organisation can never read another's data",
+      "Native M-Pesa STK Push, C2B, and B2C with FIFO payment-to-invoice reconciliation",
+      "Kenya tax engine: 16% VAT, 10/30% WHT certificates, 7.5% MRI, and KRA eTIMS auto-submission",
+      "decimal.js throughout — no floating-point drift across billing, tax, and owner statements",
+      "BullMQ jobs: monthly invoicing, daily reminders, and hourly maintenance-SLA escalation",
+      "Four role-specific portals including an offline-capable caretaker PWA for the field",
+    ],
+  },
+  {
+    slug: "lumis-team",
+    title: "Lumis Team",
+    category: "Internal Tools",
+    tagline: "The AI-powered operations hub for the studio team.",
+    description:
+      "An internal team operations platform that brings tasks, projects, time tracking, leave, payroll, docs, and team communication into one workspace — fronted by an AI assistant that knows the entire team and can draft announcements, log time, and file leave requests from natural language. Built with Next.js 15, Prisma, NextAuth, and the Anthropic SDK.",
+    tech: ["Next.js 15", "React 19", "TypeScript", "Prisma", "PostgreSQL", "NextAuth", "Anthropic SDK", "Playwright"],
+    featured: true,
+    year: "2026",
+    overview:
+      "Running a distributed studio means context scattered across a calendar, a task tracker, a timesheet, a leave tracker, and a chat app — with no single source of truth for who's available, what's at risk, and who's working on what. Lumis Team consolidates all of it into one workspace and puts an AI assistant at the centre. The assistant has live context on the whole team — every person, project, task, and leave record — so it can answer questions and actually take action: draft and post an announcement, log a timesheet entry, or submit a leave request, all from a chat message.",
+    role:
+      "Designed and built the full platform — the Prisma data model, NextAuth authentication, the Anthropic-powered assistant with real tool calling, every server component and client interaction, and the Playwright, axe-core, and Lighthouse CI test suites that gate every change.",
+    features: [
+      {
+        title: "Lumis AI Assistant",
+        description:
+          "A full-page chat assistant built on the Anthropic SDK. Its system prompt is assembled from live database context, so it knows the team roster, projects, tasks, schedule, and leave. It executes real mutations through tool calling — submitting leave, logging time, posting to the feed, sending DMs — and confirms each action before running it.",
+      },
+      {
+        title: "Tasks & Projects",
+        description:
+          "A Kanban board with todo, in-progress, review, and done columns, bulk actions, and a list view. Projects carry health indicators, progress, client, and team — giving managers a clear read on what's shipping and what's at risk.",
+      },
+      {
+        title: "Time & Leave",
+        description:
+          "Daily timesheets per project with billable/internal split and a weekly total, plus leave balances (PTO, sick days, carryover) with a request flow that previews the remaining balance and a full team leave calendar.",
+      },
+      {
+        title: "Directory, Feed & Inbox",
+        description:
+          "A searchable team directory with manager and report relationships, a social-style feed for announcements, milestones, and kudos, and an inbox combining notifications with direct-message threads.",
+      },
+      {
+        title: "Onboarding & Payroll",
+        description:
+          "Template-driven onboarding checklists track new hires and their assigned buddy through each step, while monthly payroll entries record gross, net, status, and pay date per person.",
+      },
+      {
+        title: "Command Palette & Accessibility",
+        description:
+          "A ⌘K command palette gives keyboard-driven navigation across every route. The app is WCAG 2.1 AA accessible with zero serious violations, ships light and dark themes, and installs as a PWA on mobile and desktop.",
+      },
+    ],
+    architecture:
+      "Built on Next.js 15 App Router, React Server Component-first: the root layout fetches shell data — profile, counts, notifications, people, projects, tasks — in parallel on every load to avoid request waterfalls, and pages stream interactive client components on top. Data lives in PostgreSQL accessed through Prisma, with Zod validating every input. Authentication is NextAuth v5 with database-backed sessions, email magic links, Google SSO, and token-based team invites that sign the recipient in directly on accept. Every UI-to-server call goes through a single typed API layer rather than raw fetch in components. The AI layer wraps the Anthropic SDK: a system prompt built from live DB context, a set of typed tools (submit leave, log time, post to feed, send DM, update task, mark notifications read, create reminder), streaming responses, and form-intent detection that surfaces pre-filled forms. Quality is enforced in CI with Playwright end-to-end tests across five browser targets, axe-core accessibility scans on every route, and Lighthouse CI performance budgets. Deployed on Vercel.",
+    highlights: [
+      "AI assistant on the Anthropic SDK with real tool calling — submit leave, log time, post announcements, and send DMs from chat",
+      "System prompt assembled from live database context: full team roster, projects, tasks, schedule, and leave",
+      "RSC-first with parallel data loads — Lighthouse scores of 100/95/96/100 across key routes",
+      "NextAuth v5 with database sessions, email magic links, Google SSO, and token-based team invites",
+      "Type-safe end to end: Prisma models, Zod validation, and a single typed API layer with no fetch in components",
+      "Gated by Playwright across five browsers, axe-core a11y (zero serious violations), and Lighthouse CI budgets",
+    ],
+  },
+  {
     slug: "elevate-you",
     title: "ElevateYou",
     category: "Productivity",
